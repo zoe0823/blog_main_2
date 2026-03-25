@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, render
- 
+
 from .models import post, category
 
 # Create your views here.
@@ -11,3 +11,11 @@ def home(request):
         'posts': posts
     }
     return render(request, 'blog/home.html',context)
+
+def detail(request, id):
+    post = get_object_or_404(post, id=id, status=post.ACTIVE)
+
+    context = {
+        'post': post,
+    }
+    return render(request, 'blog/detail.html', context)
